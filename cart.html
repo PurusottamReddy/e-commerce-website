@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    .product {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px;
+      display: inline-block;
+      width: 200px;
+      text-align: center;
+    }
+    button {
+      padding: 6px 12px;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #cart-display {
+      margin-top: 40px;
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Mobiles Section</h2>
+
+  <div class="product">
+    <h4>iPhone 15</h4>
+    <img src="https://placehold.co/150x150" alt="iPhone" width="100">
+    <button class="add-to-cart" data-id="1" data-name="iPhone 15">Add to Cart</button>
+  </div>
+  <div class="product">
+    <h4>Samsung Galaxy S24</h4>
+    <img src="https://placehold.co/150" alt="Samsung" width="100">
+    <button class="add-to-cart" data-id="2" data-name="Samsung Galaxy S24">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <h4>Redmi Note 7</h4>
+    <img src="https://placehold.co/150" alt="Redmi" width="100">
+    <button class="add-to-cart" data-id="3" data-name="Redmi Note 7">Add to Cart</button>
+  </div>
+
+  <div id="cart-display">
+    <h3>Your Cart</h3>
+    <ul id="cart-items"></ul>
+  </div>
+
+  <script>
+    let cart = {};
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+      for (let id in cart) {
+        const item = cart[id];
+        const li = document.createElement('li');
+        li.innerText = `${item.name} - Quantity: ${item.quantity}`;
+        cartItems.appendChild(li);
+      }
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const name = btn.dataset.name;
+
+        if (cart[id]) {
+          cart[id].quantity += 1;
+        } else {
+          cart[id] = { name: name, quantity: 1 };
+        }
+
+        updateCartDisplay();
+      });
+    });
+  </script>
+
+</body>
+</html>
